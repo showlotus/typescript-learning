@@ -1,0 +1,44 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_global\node_modules\yarn\bin\yarn.js add flow-remove-types -D
+
+PATH: 
+  C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\;D:\apache-maven-3.8.4-bin\apache-maven-3.8.4\bin;C:\Program Files\Java\jdk1.8.0_181\bin;C:\Program Files\Java\jdk1.8.0_181\jre\bin;C:\Users\yaoxu\AppData\Local\Microsoft\WindowsApps;%JAVA_HOME%\bin;C:\Program Files\nodejs\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\node_global;;C:\Users\yaoxu\AppData\Local\Programs\Fiddler
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  14.17.5
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'D:\Code\ts\node_modules\flow-bin\flow-win64-v0.173.0\flow.exe'
+
+npm manifest: 
+  {
+    "name": "ts",
+    "version": "1.0.0",
+    "description": "- 当初设计的时候，就是直接在运行环境运行，没有编译过程，为了方便就设计成弱类型\r - 而如今面对庞大的前端生态，弱类型无法满足需求，运行时，才会报错",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://gitee.com/showlotus/ts.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "flow-bin": "^0.173.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

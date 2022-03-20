@@ -1,0 +1,22 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "- 当初设计的时候，就是直接在运行环境运行，没有编译过程，为了方便就设计成弱类型\r - 而如今面对庞大的前端生态，弱类型无法满足需求，运行时，才会报错",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/showlotus/ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.7",
+    "@babel/preset-flow": "^7.16.7",
+    "flow-bin": "^0.173.0"
+  }
+}
