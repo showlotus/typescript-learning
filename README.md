@@ -1,144 +1,181 @@
 # TypeScript
 
-## JavaScript 痛点
+## 类型别名（type）
 
-- 当初设计的时候，就是直接在运行环境运行，没有编译过程，为了方便就设计成弱类型
-- 而如今面对庞大的前端生态，弱类型无法满足需求，运行时，才会报错
+将对象类型或者联合类型，通过一个单独的名称来引用。
 
-## 强类型的优点
+```ts
+type Person = {
+  name: string;
+  age: number;
+};
 
-- 错误更早暴露
-- 代码更智能，编码更准确
-- 重构更可靠（修改某个方法名）
-- 减少不必要的类型判断
+const p: Person = {
+  name: "Tom",
+  age: 20,
+};
 
-## Flow
+type ID = number | string;
 
-### 初始化
-
-#### 安装检查工具
-
-```shell
-yarn add flow-bin -D
+let pId: ID = 123;
+pId = "123";
 ```
 
-#### 添加配置文件 `.flowconfig`
+不能重新创建。
 
-```shell
-yarn flow init
+```ts
+type ID = number | string;
+
+type ID = string; // Duplicate identifier 'ID'.
 ```
 
-#### 在需要检查的 js 文件头部添加标记
+使用交集扩展属性，同时创建一个新的类型。
 
-```js
-// @flow
+```ts
+type P2 = Person & {
+  address: string;
+};
 
-/* ... */
+const p: P2 = {
+  name: "Tom",
+  age: 20,
+  address: "...",
+};
 ```
 
-#### 启动 flow （首次启动会慢一点）
+## 接口（interface）
 
-```shell
-yarn flow
-```
+命名对象类型的另一种方式。
 
-### 移除类型注解
-
-#### 安装 flow-remove-types
-
-```shell
-yarn add flow-remove-types -D
-```
-
-#### 执行
-
-```shell
-yarn flow-remove-types [源目录] -d [输出目录]
-```
-
-#### 第三方移除 `babel`
-
-- 安装
-  ```shell
-  yarn add @babel/core @babel/cli @babel/preset-flow -D
-  ```
-- 添加配置文件 `.babelrc`
-
-  ```json
-  {
-    "presets": ["@babel/preset-flow"]
-  }
-  ```
-
-- 执行
-
-  ```shell
-  yarn babel [源目录] -d [输出目录]
-  ```
-
-#### VSCode 插件 `Flow Language Support`
-
-### 类型
-
-#### 基本类型
-
-```js
-const a: number = 1
-const b: string = "2"
-const c: boolean = false
-const d: null = null
-const e: void = undefined
-const f: symbol = Symbol()
-```
-
-#### 数组类型
-
-```js
-const foo: Array<number> = [1, 2, 4]
-
-const bfa: number[] = [1, 2, 3]
-
-// 元组
-const bar: [string, number] = ["1", 2]
-```
-
-#### 对象类型
-
-```js
-const obj1: { foo: string, bar: number } = { foo: "1", bar: 2 }
-
-// 属性foo可有可无
-const obj2: { foo?: string, bar: number } = { bar: 1 }
-
-// 键和值都是字符串类型
-const obj3: { [string]: string } = { key: "value" }
-```
-
-#### 函数类型
-
-```js
-function foo (callback: (string, number)): void {
-  callback("string", 100)
+```ts
+interface Person {
+  name: string;
+  age: number;
 }
+
+const p: Person = {
+  name: "Tom",
+  age: 20,
+};
 ```
 
-#### 特殊类型
+在原接口上扩展新属性。
 
-```js
-// 联合类型
-const type: "success" | "warning" | "error"
+```ts
+interface Person {
+  address: string;
+}
 
-const f: string | number
-
-// 类型别名
-type StringOrNumber = string | number
-
-const a: StringOrNumber = "124"
-
-// maybe类型
-const b: ?number = 12
-=> const b: number | null | void = 12
-
-// mixed 所有类型的联合类型
-const
+const p: Person = {
+  name: "Tom",
+  age: 20,
+  address: "...",
+};
 ```
+
+使用继承扩展属性，同时创建一个新的接口。
+
+```ts
+interface P2 extends Person {
+  address: string;
+}
+
+const p: P2 = {
+  name: "Tom",
+  age: 20,
+  address: "...",
+};
+```
+
+使用继承创建的接口也可以扩展。
+
+```ts
+interface P2 {
+  family: string;
+}
+
+const p: P2 = {
+  name: "Tom",
+  age: 20,
+  address: "...",
+  family: "...",
+};
+```
+
+## 类型断言
+
+指名当前值的类型。
+
+```ts
+const button = document.querySelector(".btn") as HTMLButtonElement;
+
+// 因为 document.querySelector(".btn") 有可能为 null
+// 这时候使用联合类型也可以
+const button: HTMLButtonElement | null = document.querySelector(".btn");
+
+// 或者，使用尖括号语法（不能在 .tsx 中使用）
+const button = <HTMLButtonElement>document.querySelector(".btn");
+```
+
+如果规则有时候太过苛刻，阻止了原本有效的类型转换，可以使用双重断言，先断言为 `any` 或者 `unknown`，再断言为期望的类型。
+
+```ts
+const a = exp as any as number;
+```
+
+## 字面量类型
+
+将类型声明为更具体的数字或者字符串。
+
+```ts
+let a: 0 = 0;
+
+// 等同于
+const a = 0;
+```
+
+搭配联合类型。
+
+```ts
+let a: 0 | 1 | 2;
+let direction: "left" | "top" | "right" | "bottom";
+```
+
+`boolean` 类型其实就是联合类型 `true | false` 的别名。
+
+### 字面量推断
+
+```ts
+function fn(name: string, direction: "left" | "right"): void {}
+
+const ops = { name: "Tom", direction: "left" };
+fn(ops.name, ops.direction);
+// Argument of type 'string' is not assignable to parameter of type '"left" | "right"'.
+```
+
+因为 `ops.direction` 可能会被更改，所以将 `ops.direction` 推断为 `string`，而不是 `left`。
+常用的两种解决方法：
+
+1. 添加类型断言改变推断结果：
+
+   ```ts
+   const ops = { name: "Tom", direction: "left" as "left" };
+   fn(ops.name, ops.direction as "left");
+   ```
+
+   不过这会导致 `ops.direction` 不能被修改为其他值
+
+2. 使用 `as const` 将整个对象转为一个类型字面量：
+
+   ```ts
+   const ops = { name: "Tom", direction: "left" } as const;
+   fn(ops.name, ops.direction);
+   ```
+
+   设置为类型字面量后，对象的各个属性都无法更改，类似于 `const` 定义的常量。
+
+   ```ts
+   const ops = { name: "Tom", direction: "left" } as const;
+   ops.direction = "right";
+   // Cannot assign to 'direction' because it is a read-only property.
+   ```
