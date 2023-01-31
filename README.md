@@ -179,3 +179,13 @@ fn(ops.name, ops.direction);
    ops.direction = "right";
    // Cannot assign to 'direction' because it is a read-only property.
    ```
+
+## 非空断言操作符（后缀 `!`）
+
+如果 `#remove-btn` 一定存在，就可以在 `document.querySelector` 后添加 `!`。
+
+```ts
+const removeBtn: HTMLButtonElement = document.querySelector("#remove-btn")!;
+```
+
+在明确某个值一定不是 `null` 或者 `undefined` 才去使用。

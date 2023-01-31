@@ -2,10 +2,9 @@ var a = "123";
 console.log(a);
 console.log(1);
 var b;
-// const addBtn: HTMLButtonElement | null = document.querySelector("#add-btn");
 var addBtn = document.querySelector("#add-btn");
 console.log(addBtn);
-addBtn.addEventListener("click", function (e) {
+addBtn === null || addBtn === void 0 ? void 0 : addBtn.addEventListener("click", function (e) {
     console.log(e);
 });
 // function connect(a: T<>, b: T<>): <T> {
@@ -60,3 +59,5 @@ var ops = { name: "Tom", direction: "left", obj: { name: "J", age: 20 } };
 // ops.direction = "right";
 // ops.obj = {}
 fn3(ops.name, /* ops.direction as "right", */ ops.obj);
+var removeBtn = document.querySelector("#remove-btn");
+console.log(removeBtn);

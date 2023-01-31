@@ -3,11 +3,9 @@ console.log(a);
 console.log(1);
 let b;
 
-// const addBtn: HTMLButtonElement | null = document.querySelector("#add-btn");
-const addBtn = document.querySelector("#add-btn") as HTMLButtonElement;
+const addBtn: HTMLButtonElement | null = document.querySelector("#add-btn");
 console.log(addBtn);
-
-addBtn.addEventListener("click", (e: MouseEvent) => {
+addBtn?.addEventListener("click", (e: MouseEvent) => {
   console.log(e);
 });
 
@@ -97,3 +95,6 @@ const ops = { name: "Tom", direction: "left", obj: { name: "J", age: 20 } };
 // ops.direction = "right";
 // ops.obj = {}
 fn3(ops.name, /* ops.direction as "right", */ ops.obj);
+
+const removeBtn: HTMLButtonElement = document.querySelector("#remove-btn")!;
+console.log(removeBtn);
