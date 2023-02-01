@@ -23,7 +23,7 @@ function gen<T extends string[]>(...props: T): E<T> {
   return obj
 }
 
-const a = gen<["name", "age"]>("name", "age")
+const a = gen("name", "age")
 console.log(a.name, a.age);
 
 const b = gen<[]>()
